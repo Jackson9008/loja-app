@@ -16,9 +16,12 @@ export default function ProductCard({ product }) {
 
       <View style={styles.card}>
 
-        <Image source={{ uri: product.thumbnail }} style={styles.image} />
+        <Image
+          source={{ uri: product.thumbnail }}
+          style={styles.image}
+        />
 
-        <Text style={styles.title}>
+        <Text numberOfLines={2} style={styles.title}>
           {product.title}
         </Text>
 
@@ -29,39 +32,35 @@ export default function ProductCard({ product }) {
       </View>
 
     </TouchableOpacity>
+
   );
+
 }
 
 const styles = StyleSheet.create({
 
   card:{
-  backgroundColor:"#fff",
-  borderRadius:10,
-  padding:10,
-  margin:8,
-  width:160,
+    backgroundColor:"#fff",
+    borderRadius:10,
+    padding:10,
+    elevation:3
+  },
 
-  shadowColor:"#000",
-  shadowOffset:{width:0,height:2},
-  shadowOpacity:0.25,
-  shadowRadius:3.84,
-
-  elevation:5
-},
   image:{
     width:"100%",
     height:120,
-    resizeMode:"contain"
+    resizeMode:"contain",
+    marginBottom:10
   },
 
   title:{
     fontSize:14,
-    marginTop:5
+    marginBottom:5
   },
 
   price:{
-    color:"green",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    color:"green"
   }
 
 });

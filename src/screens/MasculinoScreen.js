@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
-
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
 
 export default function MasculinoScreen() {
-
-  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  // grid responsivo para melhorar layout no mobile e web
+  const screenWidth = Dimensions.get("window").width;
+
+  const numColumns = screenWidth > 900 ? 4 : screenWidth > 600 ? 3 : 2;
 
   useEffect(() => {
     loadProducts();
   }, []);
 
   async function loadProducts() {
-
     try {
-
       const response = await api.get("/products/category/mens-shirts");
 
       setProducts(response.data.products);
-
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-
   }
 
   if (loading) {
@@ -38,35 +43,31 @@ export default function MasculinoScreen() {
   }
 
   return (
-
     <View style={styles.container}>
-
       <FlatList
+        key={numColumns}
         data={products}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <ProductCard product={item} />
-        )}
+        numColumns={numColumns}
+        columnWrapperStyle={
+          numColumns > 1 ? { justifyContent: "space-between" } : null
+        }
+        renderItem={({ item }) => <ProductCard product={item} />}
       />
-
     </View>
-
   );
-
 }
 
 const styles = StyleSheet.create({
-
-  container:{
-    flex:1,
-    backgroundColor:"#eee",
-    paddingTop:10
+  container: {
+    flex: 1,
+    backgroundColor: "#eee",
+    padding: 10,
   },
 
-  loading:{
-    flex:1,
-    justifyContent:"center",
-    alignItems:"center"
-  }
-
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
