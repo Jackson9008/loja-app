@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
 
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
@@ -7,6 +7,7 @@ import ProductCard from "../components/ProductCard";
 export default function FemininoScreen() {
 
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadProducts();
@@ -16,18 +17,24 @@ export default function FemininoScreen() {
 
     try {
 
-      const response = await api.get("/products");
+      const response = await api.get("/products/category/womens-dresses");
 
-      const feminino = response.data.filter(
-        (item) => item.category === "women's clothing"
-      );
-
-      setProducts(feminino);
+      setProducts(response.data.products);
 
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
 
+  }
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
@@ -37,7 +44,6 @@ export default function FemininoScreen() {
       <FlatList
         data={products}
         keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
         renderItem={({ item }) => (
           <ProductCard product={item} />
         )}
@@ -55,6 +61,12 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor:"#eee",
     paddingTop:10
+  },
+
+  loading:{
+    flex:1,
+    justifyContent:"center",
+    alignItems:"center"
   }
 
 });

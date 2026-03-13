@@ -1,38 +1,45 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 
 export default function ProductDetailScreen({ route }) {
 
   const { product } = route.params;
 
-  const desconto = (product.price * 0.1).toFixed(2);
-  const precoFinal = (product.price - desconto).toFixed(2);
+  const desconto = product.price * 0.9;
 
   return (
-    <ScrollView style={styles.container}>
 
-      <Image source={{ uri: product.image }} style={styles.image} />
+    <View style={styles.container}>
 
-      <Text style={styles.title}>{product.title}</Text>
+      <Image
+        source={{ uri: product.thumbnail }}
+        style={styles.image}
+      />
+
+      <Text style={styles.title}>
+        {product.title}
+      </Text>
 
       <Text style={styles.description}>
         {product.description}
       </Text>
 
-      <Text style={styles.price}>
-        Preço: R$ {product.price}
+      <Text style={styles.oldPrice}>
+        R$ {product.price}
       </Text>
 
       <Text style={styles.discount}>
-        Desconto: R$ {desconto}
+        Desconto: 10%
       </Text>
 
-      <Text style={styles.final}>
-        Preço Final: R$ {precoFinal}
+      <Text style={styles.price}>
+        R$ {desconto.toFixed(2)}
       </Text>
 
-    </ScrollView>
+    </View>
+
   );
+
 }
 
 const styles = StyleSheet.create({
@@ -46,35 +53,35 @@ const styles = StyleSheet.create({
   image:{
     width:"100%",
     height:250,
-    resizeMode:"contain"
+    resizeMode:"contain",
+    marginBottom:20
   },
 
   title:{
     fontSize:20,
     fontWeight:"bold",
-    marginTop:10
+    marginBottom:10
   },
 
   description:{
-    marginTop:10,
-    fontSize:16
+    fontSize:16,
+    marginBottom:10
   },
 
-  price:{
-    marginTop:15,
-    fontSize:18,
-    color:"green"
+  oldPrice:{
+    textDecorationLine:"line-through",
+    color:"#999"
   },
 
   discount:{
-    fontSize:16,
-    color:"red"
+    color:"red",
+    fontWeight:"bold"
   },
 
-  final:{
-    fontSize:20,
-    fontWeight:"bold",
-    marginTop:10
+  price:{
+    fontSize:22,
+    color:"green",
+    fontWeight:"bold"
   }
 
 });

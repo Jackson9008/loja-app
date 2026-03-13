@@ -1,52 +1,72 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
+
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
 
 export default function MasculinoScreen() {
 
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadProducts();
   }, []);
 
   async function loadProducts() {
-  try {
 
-    const response = await api.get("/products");
+    try {
 
-    const masculino = response.data.filter(
-      (item) => item.category === "men's clothing"
-    );
+      const response = await api.get("/products/category/mens-shirts");
 
-    setProducts(masculino);
+      setProducts(response.data.products);
 
-  } catch (error) {
-    console.log(error);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+
   }
-}
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
+
     <View style={styles.container}>
 
       <FlatList
         data={products}
         keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
         renderItem={({ item }) => (
           <ProductCard product={item} />
         )}
       />
 
     </View>
+
   );
+
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#eee",
-    paddingTop: 10
+
+  container:{
+    flex:1,
+    backgroundColor:"#eee",
+    paddingTop:10
+  },
+
+  loading:{
+    flex:1,
+    justifyContent:"center",
+    alignItems:"center"
   }
+
 });

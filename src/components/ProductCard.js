@@ -16,7 +16,7 @@ export default function ProductCard({ product }) {
 
       <View style={styles.card}>
 
-        <Image source={{ uri: product.image }} style={styles.image} />
+        <Image source={{ uri: product.thumbnail }} style={styles.image} />
 
         <Text style={styles.title}>
           {product.title}
@@ -35,13 +35,19 @@ export default function ProductCard({ product }) {
 const styles = StyleSheet.create({
 
   card:{
-    backgroundColor:"#fff",
-    padding:10,
-    margin:10,
-    borderRadius:8,
-    width:180
-  },
+  backgroundColor:"#fff",
+  borderRadius:10,
+  padding:10,
+  margin:8,
+  width:160,
 
+  shadowColor:"#000",
+  shadowOffset:{width:0,height:2},
+  shadowOpacity:0.25,
+  shadowRadius:3.84,
+
+  elevation:5
+},
   image:{
     width:"100%",
     height:120,
