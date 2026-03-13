@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from "react-native";
+
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
 
@@ -13,10 +14,14 @@ export default function MasculinoScreen() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
-  // grid responsivo para melhorar layout no mobile e web
   const screenWidth = Dimensions.get("window").width;
 
-  const numColumns = screenWidth > 900 ? 4 : screenWidth > 600 ? 3 : 2;
+  const numColumns =
+    screenWidth > 900
+      ? 4
+      : screenWidth > 600
+      ? 3
+      : 2;
 
   useEffect(() => {
     loadProducts();
@@ -44,30 +49,40 @@ export default function MasculinoScreen() {
 
   return (
     <View style={styles.container}>
+
       <FlatList
         key={numColumns}
         data={products}
         keyExtractor={(item) => item.id.toString()}
         numColumns={numColumns}
-        columnWrapperStyle={
-          numColumns > 1 ? { justifyContent: "space-between" } : null
-        }
-        renderItem={({ item }) => <ProductCard product={item} />}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <ProductCard product={item} />
+          </View>
+        )}
       />
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "#eee",
-    padding: 10,
+    padding: 10
   },
 
   loading: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
+
+  itemContainer: {
+    flex: 1,
+    margin: 5
+  }
+
 });
