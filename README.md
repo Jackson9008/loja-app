@@ -38,7 +38,7 @@ Tecnologias obrigatórias: **React Native, Expo, Axios e Redux Toolkit**
 
 # 📡 API utilizada
 
-Fake Store API
+Fake API
 
 https://dummyjson.com
 
