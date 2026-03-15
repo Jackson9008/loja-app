@@ -20,7 +20,11 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
 
-      <Text style={styles.title}>Bem-vindo</Text>
+      <Text style={styles.title}>Bem-vindo de volta!</Text>
+
+      <Text style={styles.subtitle}>Insira seus dados para entrar na sua conta.</Text>
+
+
 
       <TextInput
         placeholder="Usuário"
@@ -59,6 +63,13 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 30,
     fontWeight: "bold",
+    textAlign: "center"
+  },
+
+  subtitle: {
+    fontSize: 16,
+    color: "white",
+    marginBottom: 20,
     textAlign: "center"
   },
 

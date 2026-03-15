@@ -40,7 +40,7 @@ Tecnologias obrigatórias: **React Native, Expo, Axios e Redux Toolkit**
 
 Fake Store API
 
-https://fakestoreapi.com
+https://dummyjson.com
 
 ---
 
@@ -62,7 +62,7 @@ src
 │   └── ProductDetailScreen.js
 │
 └── services
-    └── api.js
+    └── api.js
 
 ---
 
@@ -82,15 +82,38 @@ npx expo start
 
 # 📸 Telas do aplicativo
 
-Login
-Home
-Lista de produtos
-Detalhes do produto
+### 🔐 Tela de Login
 
+![Tela de Login](assets/screenshots/login.png)
+
+---
+
+### 🏠 Tela Home
+
+![Tela Home](assets/screenshots/home.png)
+
+---
+
+### 👕 Produtos Masculinos
+
+![Produtos Masculinos](assets/screenshots/masculino.png)
+
+---
+
+### 👗 Produtos Femininos
+
+![Produtos Femininos](assets/screenshots/feminino.png)
+
+---
+
+### 📦 Detalhe do Produto
+
+![Detalhe do Produto](assets/screenshots/detalheMasculino.png)
+![Detalhe do Produto](assets/screenshots/detalheFeminino.png)
 ---
 
 # 👨‍💻 Autor
 
-Jackson Sousa / ADS / RA:96045
-
-
+Jackson Sousa
+ADS - UniFecaf
+RA: 96045
